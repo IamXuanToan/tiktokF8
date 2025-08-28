@@ -1,16 +1,19 @@
 // import './Header';
 import { Outlet } from 'react-router';
-import Header from './Header';
+import clsx from 'clsx';
+import Header from '~/components/Layouts/components/Header';
 // import './Sidebar';
 import Sidebar from './Sidebar';
 
+import styles from './DefaultLayout.module.scss';
+
 function DefaultLayout() {
     return (
-        <div>
+        <div className={clsx(styles.wrapper)}>
             <Header />
-            <div className="container" style={{ display: 'flex' }}>
+            <div className={clsx(styles.container)}>
                 <Sidebar />
-                <div className="content">
+                <div className={clsx(styles.content)}>
                     <Outlet />
                 </div>
             </div>
