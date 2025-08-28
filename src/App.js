@@ -1,9 +1,22 @@
-function App() {
-    return (
-        <div className="App">
-            <h1>react app</h1>
-        </div>
-    );
-}
+// import { BrowserRouter, Route, RouterProvider, Routes } from 'react-router';
+// import { publicRoutes } from '~/routers';
 
-export default App;
+// function App() {
+//     return (
+//         <>
+//             <RouterProvider router={publicRoutes} />,
+//         </>
+//         <BrowserRouter>
+//             <div className="App">
+//                 <Routes>
+//                     {publicRoutes.map((route, index) => {
+//                         const Page = route.component;
+//                         return <Route key={index} path={route.path} element={<Page />} />;
+//                     })}
+//                 </Routes>
+//             </div>
+//         </BrowserRouter>
+//     );
+// }
+
+// export default App;
