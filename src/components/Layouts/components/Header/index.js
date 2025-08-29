@@ -23,6 +23,51 @@ const MENU_ITEMS = [
     {
         icon: <FontAwesomeIcon icon={faLanguage} />,
         title: 'English',
+        children: {
+            title: 'Language',
+            data: [
+                {
+                    type: 'language',
+                    code: 'en',
+                    title: 'English',
+                },
+                {
+                    type: 'language',
+                    code: 'vi',
+                    title: 'Tiếng việt',
+                },
+                {
+                    type: 'language',
+                    code: 'fi',
+                    title: 'Suomi', // Finland
+                },
+                {
+                    type: 'language',
+                    code: 'no',
+                    title: 'Norsk', // Norway
+                },
+                {
+                    type: 'language',
+                    code: 'se',
+                    title: 'Svenska', // Sweden
+                },
+                {
+                    type: 'language',
+                    code: 'dk',
+                    title: 'Dansk', // Denmark
+                },
+                {
+                    type: 'language',
+                    code: 'ch',
+                    title: 'Schweizerdeutsch', // Switzerland (Swiss German)
+                },
+                {
+                    type: 'language',
+                    code: 'nl',
+                    title: 'Nederlands', // Netherlands
+                },
+            ],
+        },
     },
     {
         icon: <FontAwesomeIcon icon={faCircleQuestion} />,
@@ -42,6 +87,15 @@ function Header() {
             setSearchResult([]);
         }, 0);
     }, []);
+
+    const handleMenuChange = (menuItem) => {
+        switch (menuItem.type) {
+            case 'language':
+                break;
+            default:
+                throw new Error('Invalid type');
+        }
+    };
 
     return (
         <header className={clsx(styles.wrapper)}>
@@ -78,7 +132,7 @@ function Header() {
                 <div className={clsx(styles.action)}>
                     <Button text>Upload</Button>
                     <Button primary>Login</Button>
-                    <Menu items={MENU_ITEMS}>
+                    <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
                         <button className={clsx(styles['more-btn'])}>
                             <FontAwesomeIcon icon={faEllipsisVertical} />
                         </button>
