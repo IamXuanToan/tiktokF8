@@ -1,16 +1,21 @@
 import clsx from 'clsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    faArrowRightToBracket,
     faCircleQuestion,
     faCircleXmark,
+    faCoins,
     faEllipsisVertical,
+    faGear,
     faKeyboard,
     faLanguage,
     faMagnifyingGlass,
+    faRightToBracket,
     faSpinner,
+    faUser,
 } from '@fortawesome/free-solid-svg-icons';
-import Tippy from '@tippyjs/react/headless';
+import Tippy from '@tippyjs/react';
+import HeadlessTippy from '@tippyjs/react/headless';
+import 'tippy.js/dist/tippy.css'; // optional
 
 import styles from './Header.module.scss';
 import images from '~/assets/images';
@@ -18,6 +23,7 @@ import { useEffect, useState } from 'react';
 import { Menu, Wrapper as PoperWrapper } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
 import Button from '~/components/Button';
+import { faCloud, faMessage } from '@fortawesome/free-regular-svg-icons';
 
 const MENU_ITEMS = [
     {
@@ -82,6 +88,9 @@ const MENU_ITEMS = [
 
 function Header() {
     const [searchResult, setSearchResult] = useState([]);
+
+    const currentUser = true;
+
     useEffect(() => {
         setTimeout(() => {
             setSearchResult([]);
@@ -97,13 +106,38 @@ function Header() {
         }
     };
 
+    const userMenu = [
+        {
+            icon: <FontAwesomeIcon icon={faUser} />,
+            title: 'View profile',
+            to: '/@hoaa',
+        },
+        {
+            icon: <FontAwesomeIcon icon={faCoins} />,
+            title: 'Get coin',
+            to: '/coin',
+        },
+        {
+            icon: <FontAwesomeIcon icon={faGear} />,
+            title: 'Settings',
+            to: '/Settings',
+        },
+        ...MENU_ITEMS,
+        {
+            icon: <FontAwesomeIcon icon={faRightToBracket} />,
+            title: 'Log out',
+            to: '/logout',
+            separate: true, //có nào có separate thì có gạch trên
+        },
+    ];
+
     return (
         <header className={clsx(styles.wrapper)}>
             <div className={clsx(styles.inner)}>
                 <div className={clsx(styles.logo)}>
                     <img src={images.logo} alt="Tiktok logo" />
                 </div>
-                <Tippy
+                <HeadlessTippy
                     interactive
                     visible={searchResult.length > 0}
                     render={(attrs) => (
@@ -128,14 +162,38 @@ function Header() {
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
                         </button>
                     </div>
-                </Tippy>
+                </HeadlessTippy>
                 <div className={clsx(styles.action)}>
-                    <Button text>Upload</Button>
-                    <Button primary>Login</Button>
-                    <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
-                        <button className={clsx(styles['more-btn'])}>
-                            <FontAwesomeIcon icon={faEllipsisVertical} />
-                        </button>
+                    {currentUser ? (
+                        <>
+                            <Tippy content="upload video" placement="bottom" delay={[0, 100]}>
+                                <button className={clsx(styles['action-btn'])}>
+                                    <FontAwesomeIcon icon={faCloud} />
+                                </button>
+                            </Tippy>
+
+                            {/* <button className={clsx(styles['action-btn'])}>
+                                <FontAwesomeIcon icon={faMessage} />
+                            </button> */}
+                        </>
+                    ) : (
+                        <>
+                            <Button text>Upload</Button>
+                            <Button primary>Login</Button>
+                        </>
+                    )}
+                    <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
+                        {currentUser ? (
+                            <img
+                                src="https://fagopet.vn/storage/s8/16/s816f85gr7alupg3h31g2ht5bu8v_phoi-giong-meo-tai-cup_(1).jpg"
+                                className={clsx(styles['user-avatar'])}
+                                alt="lll"
+                            />
+                        ) : (
+                            <button className={clsx(styles['more-btn'])}>
+                                <FontAwesomeIcon icon={faEllipsisVertical} />
+                            </button>
+                        )}
                     </Menu>
                 </div>
             </div>
