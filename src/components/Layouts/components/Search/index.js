@@ -54,49 +54,53 @@ function Search() {
     };
 
     return (
-        <HeadlessTippy
-            interactive
-            visible={searchResult.length > 0 && showResult}
-            render={(attrs) => (
-                <div className={clsx(styles['search-result'])} tabIndex="-1" {...attrs}>
-                    <PoperWrapper>
-                        <h4 className={clsx(styles['search-title'])}>Accounts</h4>
-                        {searchResult.map((result) => (
-                            <AccountItem key={result.id} data={result} onClick={handleHideResult} />
-                        ))}
-                    </PoperWrapper>
-                </div>
-            )}
-            onClickOutside={handleHideResult}
-        >
-            <div className={clsx(styles.search)}>
-                <input
-                    ref={inputRef}
-                    placeholder="Search ..."
-                    value={searchValue}
-                    spellCheck={false}
-                    onChange={handleChange}
-                    onFocus={() => setShowResult(true)}
-                />
-                {!!searchResult && !loading && searchValue.length > 0 && (
-                    <button
-                        className={clsx(styles.clear)}
-                        onClick={() => {
-                            setSearchValue('');
-                            inputRef.current.focus();
-                        }}
-                    >
-                        {<FontAwesomeIcon icon={faCircleXmark} />}
-                    </button>
+        // Using a wrapper <div> or <span> tag around the reference element solves
+        // this by creating a new parentNode context.
+        <div>
+            <HeadlessTippy
+                interactive
+                visible={searchResult.length > 0 && showResult}
+                render={(attrs) => (
+                    <div className={clsx(styles['search-result'])} tabIndex="-1" {...attrs}>
+                        <PoperWrapper>
+                            <h4 className={clsx(styles['search-title'])}>Accounts</h4>
+                            {searchResult.map((result) => (
+                                <AccountItem key={result.id} data={result} onClick={handleHideResult} />
+                            ))}
+                        </PoperWrapper>
+                    </div>
                 )}
-                {loading && <FontAwesomeIcon className={clsx(styles.loading)} icon={faSpinner} />}
+                onClickOutside={handleHideResult}
+            >
+                <div className={clsx(styles.search)}>
+                    <input
+                        ref={inputRef}
+                        placeholder="Search ..."
+                        value={searchValue}
+                        spellCheck={false}
+                        onChange={handleChange}
+                        onFocus={() => setShowResult(true)}
+                    />
+                    {!!searchResult && !loading && searchValue.length > 0 && (
+                        <button
+                            className={clsx(styles.clear)}
+                            onClick={() => {
+                                setSearchValue('');
+                                inputRef.current.focus();
+                            }}
+                        >
+                            {<FontAwesomeIcon icon={faCircleXmark} />}
+                        </button>
+                    )}
+                    {loading && <FontAwesomeIcon className={clsx(styles.loading)} icon={faSpinner} />}
 
-                {/* loading... */}
-                <button className={clsx(styles['search-btn'])} onMouseDown={(e) => e.preventDefault()}>
-                    <SearchIcon />
-                </button>
-            </div>
-        </HeadlessTippy>
+                    {/* loading... */}
+                    <button className={clsx(styles['search-btn'])} onMouseDown={(e) => e.preventDefault()}>
+                        <SearchIcon />
+                    </button>
+                </div>
+            </HeadlessTippy>
+        </div>
     );
 }
 
