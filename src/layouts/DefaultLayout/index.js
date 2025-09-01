@@ -1,7 +1,7 @@
 // import './Header';
 import { Outlet } from 'react-router';
 import clsx from 'clsx';
-import Header from '~/components/Layouts/components/Header';
+import Header from '~/layouts/components/Header';
 // import './Sidebar';
 import Sidebar from './Sidebar';
 

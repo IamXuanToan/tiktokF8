@@ -2,18 +2,18 @@ import { createBrowserRouter } from 'react-router';
 import Following from '~/components/pages/Following';
 import Home from '~/components/pages/Home';
 import Profile from '~/components/pages/Profile';
-import { DefaultLayout } from '~/components/Layouts';
+import DefaultLayout from '~/layouts';
 
-import routesConfig from '~/config/routes';
+import config from '~/config';
 
 export const publicRoutes = createBrowserRouter([
     {
-        path: routesConfig.home,
+        path: config.routes.home,
         element: <DefaultLayout />, // layout chính
         children: [
             { index: true, element: <Home /> },
-            { path: routesConfig.profile, element: <Profile /> },
-            { path: routesConfig.following, element: <Following /> },
+            { path: config.routes.profile, element: <Profile /> },
+            { path: config.routes.following, element: <Following /> },
         ],
     },
 ]);

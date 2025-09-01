@@ -5,7 +5,7 @@ import HeadlessTippy from '@tippyjs/react/headless';
 import 'tippy.js/dist/tippy.css'; // optional
 import { useEffect, useRef, useState } from 'react';
 
-import * as searchServices from '~/apiServices/searchServices';
+import * as searchServices from '~/services/searchService';
 import { useDebounce } from '~/hooks';
 import styles from './Search.module.scss';
 import { Wrapper as PoperWrapper } from '~/components/Popper';
