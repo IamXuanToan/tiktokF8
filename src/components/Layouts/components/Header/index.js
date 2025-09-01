@@ -2,28 +2,24 @@ import clsx from 'clsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faCircleQuestion,
-    faCircleXmark,
     faCoins,
     faEllipsisVertical,
     faGear,
     faKeyboard,
     faLanguage,
-    faMagnifyingGlass,
     faRightToBracket,
-    faSpinner,
     faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react';
-import HeadlessTippy from '@tippyjs/react/headless';
 import 'tippy.js/dist/tippy.css'; // optional
 
 import styles from './Header.module.scss';
 import images from '~/assets/images';
-import { useEffect, useState } from 'react';
-import { Menu, Wrapper as PoperWrapper } from '~/components/Popper';
-import AccountItem from '~/components/AccountItem';
+import { Menu } from '~/components/Popper';
 import Button from '~/components/Button';
-import { faCloud, faMessage } from '@fortawesome/free-regular-svg-icons';
+import { InboxIcon, MessageIcon, UploadIcon } from '~/components/Icons';
+import Image from '~/components/Image';
+import Search from '../Search';
 
 const MENU_ITEMS = [
     {
@@ -87,15 +83,7 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
-    const [searchResult, setSearchResult] = useState([]);
-
     const currentUser = true;
-
-    useEffect(() => {
-        setTimeout(() => {
-            setSearchResult([]);
-        }, 0);
-    }, []);
 
     const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {
@@ -137,38 +125,27 @@ function Header() {
                 <div className={clsx(styles.logo)}>
                     <img src={images.logo} alt="Tiktok logo" />
                 </div>
-                <HeadlessTippy
-                    interactive
-                    visible={searchResult.length > 0}
-                    render={(attrs) => (
-                        <div className={clsx(styles['search-result'])} tabIndex="-1" {...attrs}>
-                            <PoperWrapper>
-                                <h4 className={clsx(styles['search-title'])}>Accounts</h4>
-                                <AccountItem />
-                                <AccountItem />
-                                <AccountItem />
-                            </PoperWrapper>
-                        </div>
-                    )}
-                >
-                    <div className={clsx(styles.search)}>
-                        <input placeholder="Search ..." />
-                        <button className={clsx(styles.clear)}>
-                            <FontAwesomeIcon icon={faCircleXmark} />
-                        </button>
-                        <FontAwesomeIcon className={clsx(styles.loading)} icon={faSpinner} />
-                        {/* loading... */}
-                        <button className={clsx(styles['search-btn'])}>
-                            <FontAwesomeIcon icon={faMagnifyingGlass} />
-                        </button>
-                    </div>
-                </HeadlessTippy>
+                <Search />
+                {/* SEARCH */}
                 <div className={clsx(styles.action)}>
                     {currentUser ? (
                         <>
                             <Tippy content="upload video" placement="bottom" delay={[0, 100]}>
                                 <button className={clsx(styles['action-btn'])}>
-                                    <FontAwesomeIcon icon={faCloud} />
+                                    <UploadIcon />
+                                </button>
+                            </Tippy>
+
+                            <Tippy content="Message" placement="bottom" delay={[0, 100]}>
+                                <button className={clsx(styles['action-btn'])}>
+                                    <MessageIcon />
+                                </button>
+                            </Tippy>
+
+                            <Tippy content="Inbox" placement="bottom" delay={[0, 100]}>
+                                <button className={clsx(styles['action-btn'])}>
+                                    <span className={clsx(styles.badge)}>16</span>
+                                    <InboxIcon />
                                 </button>
                             </Tippy>
 
@@ -184,7 +161,7 @@ function Header() {
                     )}
                     <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
                         {currentUser ? (
-                            <img
+                            <Image
                                 src="https://fagopet.vn/storage/s8/16/s816f85gr7alupg3h31g2ht5bu8v_phoi-giong-meo-tai-cup_(1).jpg"
                                 className={clsx(styles['user-avatar'])}
                                 alt="lll"

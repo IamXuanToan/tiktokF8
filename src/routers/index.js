@@ -10,7 +10,7 @@ export const publicRoutes = createBrowserRouter([
         element: <DefaultLayout />, // layout chính
         children: [
             { index: true, element: <Home /> },
-            { path: 'profile', element: <Profile /> },
+            { path: ':nickname', element: <Profile /> },
             { path: 'following', element: <Following /> },
         ],
     },
