@@ -10,7 +10,7 @@ import { data } from 'react-router';
 
 const defaultFn = () => {};
 
-function Menu({ children, items = [], onChange = defaultFn }) {
+function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn }) {
     const [history, setHistory] = useState([{ data: items }]);
     const current = history[history.length - 1];
 
@@ -42,6 +42,7 @@ function Menu({ children, items = [], onChange = defaultFn }) {
             delay={[0, 300]}
             offset={[12, 8]}
             placement="top-end"
+            hideOnClick={hideOnClick}
             render={(attrs) => (
                 <div className={clsx(styles['menu-list'])} tabIndex="-1" {...attrs}>
                     <PoperWrapper className={clsx(styles['menu-poper'])}>

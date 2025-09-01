@@ -13,6 +13,7 @@ import {
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 
+import routesConfig from '~/config/routes';
 import styles from './Header.module.scss';
 import images from '~/assets/images';
 import { Menu } from '~/components/Popper';
@@ -20,6 +21,7 @@ import Button from '~/components/Button';
 import { InboxIcon, MessageIcon, UploadIcon } from '~/components/Icons';
 import Image from '~/components/Image';
 import Search from '../Search';
+import { Link } from 'react-router';
 
 const MENU_ITEMS = [
     {
@@ -123,7 +125,9 @@ function Header() {
         <header className={clsx(styles.wrapper)}>
             <div className={clsx(styles.inner)}>
                 <div className={clsx(styles.logo)}>
-                    <img src={images.logo} alt="Tiktok logo" />
+                    <Link to={routesConfig.home} className={clsx(styles['logo-link'])}>
+                        <img src={images.logo} alt="Tiktok logo" />
+                    </Link>
                 </div>
                 <Search />
                 {/* SEARCH */}

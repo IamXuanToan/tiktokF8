@@ -45,6 +45,14 @@ function Search() {
         setShowResult(false);
     };
 
+    const handleChange = (e) => {
+        const searchValue = e.target.value;
+
+        if (!searchValue.startsWith(' ')) {
+            setSearchValue(searchValue);
+        }
+    };
+
     return (
         <HeadlessTippy
             interactive
@@ -54,7 +62,7 @@ function Search() {
                     <PoperWrapper>
                         <h4 className={clsx(styles['search-title'])}>Accounts</h4>
                         {searchResult.map((result) => (
-                            <AccountItem key={result.id} data={result} />
+                            <AccountItem key={result.id} data={result} onClick={handleHideResult} />
                         ))}
                     </PoperWrapper>
                 </div>
@@ -67,9 +75,7 @@ function Search() {
                     placeholder="Search ..."
                     value={searchValue}
                     spellCheck={false}
-                    onChange={(e) => {
-                        setSearchValue(e.target.value);
-                    }}
+                    onChange={handleChange}
                     onFocus={() => setShowResult(true)}
                 />
                 {!!searchResult && !loading && searchValue.length > 0 && (
@@ -86,7 +92,7 @@ function Search() {
                 {loading && <FontAwesomeIcon className={clsx(styles.loading)} icon={faSpinner} />}
 
                 {/* loading... */}
-                <button className={clsx(styles['search-btn'])}>
+                <button className={clsx(styles['search-btn'])} onMouseDown={(e) => e.preventDefault()}>
                     <SearchIcon />
                 </button>
             </div>
