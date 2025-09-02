@@ -3,7 +3,7 @@ import { Outlet } from 'react-router';
 import clsx from 'clsx';
 import Header from '~/layouts/components/Header';
 // import './Sidebar';
-import Sidebar from './Sidebar';
+import Sidebar from '~/layouts/components/Sidebar';
 
 import styles from './DefaultLayout.module.scss';
 
